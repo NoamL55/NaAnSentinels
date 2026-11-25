@@ -34,12 +34,12 @@ flowchart LR
 
 ## Les deux vues
 
-- **Vue simple** (par défaut) : un bouclier animé, une phrase en langage courant, trois points au plus.
+- **Vue simple** (par défaut) : un bouclier en 3D, une phrase en langage courant, trois points au plus.
   Pour répondre à une seule question : « je peux l'ouvrir ou pas ? ».
 - **Vue experte** : échelle du verdict, parcours de l'analyse, jauge d'entropie, carte des sections,
   désassemblage, éditeur de règles, journal.
 
-On passe de l'une à l'autre en un clic, en haut de la fenêtre.
+On passe de l'une à l'autre en un clic, en bas de la barre latérale.
 
 ## Installer et lancer
 

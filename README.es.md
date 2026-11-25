@@ -36,12 +36,12 @@ flowchart LR
 
 ## Las dos vistas
 
-- **Vista simple** (« Vue simple », por defecto): un escudo animado, una frase en lenguaje corriente, tres puntos
+- **Vista simple** (« Vue simple », por defecto): un escudo en 3D, una frase en lenguaje corriente, tres puntos
   como máximo. Para responder a una sola pregunta: «¿puedo abrirlo o no?».
 - **Vista experta** (« Vue experte »): escala del veredicto, recorrido del análisis, medidor de entropía, mapa de
   secciones, desensamblado, editor de reglas, registro.
 
-Se pasa de una a otra con un clic, en la parte superior de la ventana.
+Se pasa de una a otra con un clic, en la parte inferior de la barra lateral.
 
 ## Instalar y ejecutar
 

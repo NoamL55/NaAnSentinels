@@ -36,12 +36,12 @@ flowchart LR
 
 ## The two views
 
-- **Simple view** (« Vue simple », the default): an animated shield, one sentence in plain language, three points
+- **Simple view** (« Vue simple », the default): a 3D shield, one sentence in plain language, three points
   at most. It answers a single question: "can I open it or not?".
 - **Expert view** (« Vue experte »): verdict scale, analysis path, entropy gauge, section map,
   disassembly, rule editor, log.
 
-You switch from one to the other in one click, at the top of the window.
+You switch from one to the other in one click, at the bottom of the sidebar.
 
 ## Install and run
 
