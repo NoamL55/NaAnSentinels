@@ -1,0 +1,162 @@
+/* SPDX-License-Identifier: MIT — Copyright (c) 2026 Noam Lellouche — NaAnSentinels (projet original) */
+:root {
+  color-scheme: light;
+  --fond: #f4f3f0;
+  --surface: #fcfcfb;
+  --trait: #e3e2dd;
+  --texte: #0b0b0b;
+  --texte-2: #52514e;
+  --accent: #2563eb;
+  --accent-texte: #ffffff;
+  --piste: #e9e8e3;
+  /* Statuts (verdicts) : toujours accompagnés d'un symbole et d'un libellé. */
+  --sain: #0ca30c;
+  --a-regarder: #fab219;
+  --suspect: #ec835a;
+  --dangereux: #d03b3b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --fond: #090d16;
+    --surface: #121928;
+    --trait: #242f48;
+    --texte: #ecf1fa;
+    --texte-2: #96a3be;
+    --accent: #3b82f6;
+    --accent-texte: #ffffff;
+    --piste: #1a2337;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fond); color: var(--texte); font: 16px/1.5 system-ui, "Segoe UI", sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.7rem; line-height: 1.2; margin: 0 0 6px; text-wrap: balance; }
+h2 { font-size: 1.15rem; margin: 32px 0 12px; }
+h3 { font-size: 1rem; margin: 0 0 12px; }
+footer { text-align: center; color: var(--texte-2); font-size: .85rem; padding: 24px 16px 32px; }
+[hidden] { display: none !important; }
+
+.barre { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--trait); position: sticky; top: 0; z-index: 5; }
+.marque { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--texte); text-decoration: none; }
+.bouclier-trait { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linejoin: round; }
+.bouclier-plein { fill: var(--accent); }
+.bouclier-coche { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.radar .bouclier-coche { stroke: #ffffff; }
+nav { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
+nav button, .bascule button { background: none; border: 0; color: var(--texte-2); font: inherit; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+nav button[aria-current="page"], .bascule button[aria-pressed="true"] { background: var(--piste); color: var(--texte); font-weight: 600; }
+.compte { display: flex; align-items: center; gap: 10px; color: var(--texte-2); font-size: .9rem; }
+.badge { border: 1px solid var(--trait); border-radius: 999px; padding: 2px 10px; font-size: .8rem; color: var(--texte); }
+
+button, input, select { font: inherit; }
+button[type="submit"], .bouton { background: var(--accent); color: var(--accent-texte); border: 0; border-radius: 8px; padding: 9px 16px; font-weight: 600; cursor: pointer; }
+button.secondaire, .bouton.secondaire { background: none; color: var(--texte); border: 1px solid var(--trait); }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+label { display: grid; gap: 4px; margin-bottom: 12px; font-size: .9rem; color: var(--texte-2); }
+input, select { background: var(--fond); color: var(--texte); border: 1px solid var(--trait); border-radius: 8px; padding: 8px 10px; }
+.message { min-height: 1.4em; margin: 10px 0 0; font-size: .9rem; color: var(--texte-2); }
+.note, .sous-titre, .phrase { color: var(--texte-2); }
+.phrase { font-size: 1.05rem; margin: 0 0 16px; }
+
+.carte { background: var(--surface); border: 1px solid var(--trait); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.carte ul { margin: 0; padding-left: 20px; color: var(--texte-2); }
+.deux-colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.puce { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: .8rem; }
+.puce.ok { background: var(--sain); }
+.puce.non { background: var(--dangereux); }
+
+/* ---------- Bouclier animé ---------- */
+.hero { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 24px 0 8px; }
+.hero.compact { padding-top: 8px; }
+.radar { position: relative; display: grid; place-items: center; width: 128px; height: 128px; flex: none; }
+.hero.compact .radar { width: 104px; height: 104px; }
+.radar svg { position: relative; animation: respire 3.2s ease-in-out infinite; }
+.onde { position: absolute; inset: 14px; border: 2px solid var(--accent); border-radius: 50%; opacity: 0; animation: onde 3.2s ease-out infinite; }
+.onde-2 { animation-delay: 1.6s; }
+@keyframes onde { 0% { transform: scale(.55); opacity: .55; } 100% { transform: scale(1.25); opacity: 0; } }
+@keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+/* ---------- Schéma « comment ça marche » ---------- */
+.schema { list-style: none; margin: 0 0 16px; padding: 0; display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; }
+.etape { flex: 1 1 200px; display: grid; gap: 4px; align-content: start; background: var(--surface); border: 1px solid var(--trait); border-radius: 12px; padding: 14px; }
+.etape.pointille { border-style: dashed; }
+.etape span:last-child { color: var(--texte-2); font-size: .9rem; }
+.rang { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-texte); font-weight: 700; font-size: .85rem; }
+.fleche { flex: 0 0 44px; position: relative; align-self: center; height: 2px; background: var(--trait); margin: 0 4px; }
+.fleche::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 8px solid var(--trait); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.point { position: absolute; top: -4px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); animation: voyage 2.4s linear infinite; }
+@keyframes voyage { 0% { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 10px); opacity: 0; } }
+@media (max-width: 720px) { .fleche { flex-basis: 100%; height: 24px; width: 2px; background: none; margin: 0; } .fleche::after, .point { display: none; } }
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.role { display: grid; gap: 4px; margin: 0; }
+.role span { color: var(--texte-2); font-size: .9rem; }
+
+/* ---------- Tableau de bord ---------- */
+.entete-vue { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.bascule { display: flex; gap: 2px; border: 1px solid var(--trait); border-radius: 10px; padding: 2px; background: var(--surface); }
+.tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.tuile { background: var(--surface); border: 1px solid var(--trait); border-radius: 12px; padding: 14px; display: grid; gap: 2px; }
+.tuile .valeur { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.tuile.vedette .valeur { font-size: 3rem; }
+.tuile .libelle { color: var(--texte-2); font-size: .9rem; display: flex; align-items: center; gap: 8px; }
+.pouls { width: 10px; height: 10px; border-radius: 50%; background: var(--sain); box-shadow: 0 0 0 0 var(--sain); animation: pouls 1.8s ease-out infinite; flex: none; }
+.pouls.eteint { background: var(--texte-2); animation: none; }
+@keyframes pouls { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sain) 60%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+
+.segments { display: flex; gap: 2px; height: 44px; border-radius: 6px; overflow: hidden; background: var(--piste); }
+.segment { display: grid; place-items: center; min-width: 3px; font-size: .85rem; font-weight: 600; transition: flex-grow .6s ease; flex-basis: 0; }
+.segment.sain { background: var(--sain); color: #fff; }
+.segment.a_regarder { background: var(--a-regarder); color: #0b0b0b; }
+.segment.suspect { background: var(--suspect); color: #0b0b0b; }
+.segment.dangereux { background: var(--dangereux); color: #fff; }
+.vide { color: var(--texte-2); font-size: .9rem; padding: 10px 0; }
+.legende { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 20px; padding: 0 !important; margin: 12px 0 0 !important; color: var(--texte) !important; font-size: .9rem; }
+.legende li { display: flex; align-items: center; gap: 8px; }
+.pastille { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 4px; font-size: .7rem; font-weight: 700; flex: none; }
+.pastille.sain { background: var(--sain); color: #fff; }
+.pastille.a_regarder { background: var(--a-regarder); color: #0b0b0b; }
+.pastille.suspect { background: var(--suspect); color: #0b0b0b; }
+.pastille.dangereux { background: var(--dangereux); color: #fff; }
+.legende .chiffre { color: var(--texte-2); }
+
+.barres { display: grid; gap: 10px; }
+.ligne-barre { display: grid; grid-template-columns: minmax(70px, 110px) 1fr; align-items: center; gap: 10px; font-size: .9rem; }
+.ligne-barre .nom { overflow-wrap: anywhere; }
+.ligne-barre .zone { display: flex; align-items: center; gap: 8px; }
+.barre-h { height: 16px; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; transition: width .6s ease; }
+.ligne-barre .val { color: var(--texte-2); }
+
+.defilement { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--trait); white-space: nowrap; }
+th { color: var(--texte-2); font-weight: 600; }
+th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+td .etat { display: inline-flex; align-items: center; gap: 8px; }
+td code { font-size: .85rem; }
+
+.cartes-appareils { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.appareil { display: grid; gap: 8px; animation: apparait .5s ease both; }
+.appareil .ligne { display: flex; align-items: center; gap: 8px; }
+.appareil .gros { font-size: 1.6rem; font-weight: 700; }
+@keyframes apparait { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.bulle { position: fixed; z-index: 10; pointer-events: none; background: var(--texte); color: var(--surface); border-radius: 8px; padding: 6px 10px; font-size: .85rem; max-width: 240px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Même allure que l'application : dégradé bleu → cyan, lueurs douces ---------- */
+:root { --accent-2: #22d3ee; }
+body { background: radial-gradient(900px 480px at 50% -80px, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%), var(--fond); background-attachment: fixed; }
+button[type="submit"], .bouton:not(.secondaire) { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; box-shadow: 0 8px 22px -10px var(--accent); }
+button.secondaire, .bouton.secondaire { border-radius: 999px; }
+.carte, .tuile, .etape { border-radius: 14px; box-shadow: 0 10px 28px -18px rgba(0, 0, 0, .55); }
+.bouclier-plein { fill: url(#degrade-bouclier); }
+.barre-h { background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.rang, .point { background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+nav button[aria-current="page"] { background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 34%, transparent), color-mix(in srgb, var(--accent-2) 10%, transparent)); }
+.bascule button[aria-pressed="true"] { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #fff; border-radius: 8px; }
+.definitions { position: absolute; }

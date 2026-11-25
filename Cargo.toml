@@ -1,0 +1,37 @@
+[package]
+name = "naansentinels"
+version = "0.1.0"
+edition = "2021"
+description = "Antivirus open source qui explique au lieu d'interdire : analyse statique de fichiers (reverse engineering avant exécution), anti-phishing, règles ouvertes et éditables."
+license = "MIT"
+authors = ["Noam Lellouche"]
+
+[workspace]
+members = [".", "server"]
+resolver = "2"
+
+[[bin]]
+name = "naansentinels"
+path = "src/main.rs"
+
+[dependencies]
+# Interface graphique (immediate mode, légère, modifiable).
+eframe = "0.28"
+egui = "0.28"
+# Analyse de binaires Windows (PE) et désassemblage x86/x64 — le cœur « reverse engineering ».
+goblin = "0.8"
+iced-x86 = "1.21"
+# Empreintes, règles éditables (TOML), dialogues de fichiers.
+sha2 = "0.10"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+rfd = "0.14"
+# Signal de présence facultatif et compte (HTTPS), signature des versions officielles.
+ureq = { version = "2", features = ["json"] }
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand = "0.8"
+
+[profile.release]
+opt-level = 3
+lto = true

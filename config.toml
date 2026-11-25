@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT — Copyright (c) 2026 Noam Lellouche — NaAnSentinels (projet original)
+# Configuration de NaAnSentinels — édite ce fichier, tout est à toi.
+# Rechargé au démarrage, et par le bouton « Recharger » de l'onglet Règles.
+
+[analyse]
+# Au-dessus de ce seuil d'entropie (0 à 8), un exécutable est probablement empaqueté ou chiffré.
+entropie_suspecte = 7.2
+# On n'analyse pas les fichiers plus gros que ça (en mégaoctets).
+taille_max_mo = 300
+# Nombre d'instructions désassemblées montrées à partir du point d'entrée.
+instructions_desassemblees = 60
+
+[interface]
+# "sombre" ou "clair".
+theme = "sombre"
+
+[mail]
+# Anti-phishing relié à la boîte mail : pas encore disponible. Pour l'instant, l'analyse se fait sur un fichier .eml que tu déposes.
+# Quand ce sera branché : mets ton serveur IMAP ici, et ton MOT DE PASSE D'APPLICATION dans un fichier .env
+# (jamais ici, jamais dans Git). Exemple :
+#   serveur_imap = "imap.gmail.com"
+#   port = 993
+#   adresse = "toi@exemple.com"
+serveur_imap = ""
+port = 993
+adresse = ""

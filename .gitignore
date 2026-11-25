@@ -1,0 +1,25 @@
+# Rust
+/target
+*.log
+**/*.rs.bk
+Cargo.lock.bak
+
+# Secrets : JAMAIS versionnés (identifiants mail, clés API VirusTotal…)
+.env
+secrets.toml
+config.local.toml
+
+# Échantillons de malware mis en quarantaine ou déposés pour analyse
+/quarantaine
+/echantillons
+*.sample
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Clés privées de signature et bases du serveur : jamais dans le dépôt
+*.key
+*.db
+*.db-wal
+*.db-shm

@@ -1,0 +1,87 @@
+# SPDX-License-Identifier: MIT — Copyright (c) 2026 Noam Lellouche — NaAnSentinels (projet original)
+# Règles de détection de NaAnSentinels — ouvertes et éditables par toi.
+# Trois leviers : signatures (motifs à reconnaître), imports suspects (fonctions dangereuses
+# appelées par un exécutable), chaînes suspectes (texte révélateur dans le binaire).
+# Recharge après modification avec le bouton « Recharger » de l'onglet Règles.
+#
+# Rien n'est jamais supprimé ni bloqué automatiquement : ces règles ALIMENTENT un rapport qui t'explique.
+
+# ------------------------------------------------------------------ Signatures
+# type : "chaine" (texte exact), "hex" (octets, ex. "4d5a90"), "sha256" (empreinte complète).
+# gravite : "info", "a_regarder", "suspect", "dangereux".
+
+[[signature]]
+nom = "EICAR-Test-File"
+type = "chaine"
+motif = 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*'
+gravite = "dangereux"
+source = "standard EICAR (fichier de test inoffensif)"
+
+[[signature]]
+nom = "Shell-inverse-PowerShell-encode"
+type = "chaine"
+motif = "FromBase64String"
+gravite = "a_regarder"
+source = "règle maison : charge souvent utilisée par des scripts obfusqués"
+
+# ------------------------------------------------------- Fonctions importées suspectes
+# Un exécutable qui importe ces fonctions n'est PAS forcément malveillant : on te dit juste
+# ce qu'elles permettent, pour que TU juges avec le contexte.
+
+[[import_suspect]]
+nom = "VirtualAllocEx"
+gravite = "suspect"
+raison = "réserve de la mémoire dans un AUTRE processus — étape classique d'injection de code."
+
+[[import_suspect]]
+nom = "WriteProcessMemory"
+gravite = "suspect"
+raison = "écrit dans la mémoire d'un autre processus — injection de code."
+
+[[import_suspect]]
+nom = "CreateRemoteThread"
+gravite = "suspect"
+raison = "lance un fil d'exécution dans un autre processus — finalise une injection."
+
+[[import_suspect]]
+nom = "SetWindowsHookEx"
+gravite = "a_regarder"
+raison = "installe un hook clavier/souris global — utilisé par les keyloggers (mais aussi par des outils légitimes)."
+
+[[import_suspect]]
+nom = "URLDownloadToFile"
+gravite = "a_regarder"
+raison = "télécharge un fichier depuis Internet — courant chez les téléchargeurs (droppers)."
+
+[[import_suspect]]
+nom = "WinExec"
+gravite = "a_regarder"
+raison = "exécute une commande — à regarder selon ce qui est lancé."
+
+[[import_suspect]]
+nom = "RegSetValueExA"
+gravite = "info"
+raison = "écrit dans le registre — souvent légitime, parfois pour se lancer au démarrage."
+
+# ----------------------------------------------------------- Chaînes suspectes
+# Du texte lisible dans le binaire qui mérite ton attention.
+
+[[chaine_suspecte]]
+motif = "cmd.exe /c"
+gravite = "a_regarder"
+raison = "lance une commande shell."
+
+[[chaine_suspecte]]
+motif = "powershell -enc"
+gravite = "suspect"
+raison = "commande PowerShell encodée en base64 — dissimulation fréquente."
+
+[[chaine_suspecte]]
+motif = "\\CurrentVersion\\Run"
+gravite = "a_regarder"
+raison = "clé de registre de démarrage automatique — persistance."
+
+[[chaine_suspecte]]
+motif = "bitcoin"
+gravite = "info"
+raison = "mention de cryptomonnaie — parfois une demande de rançon."

@@ -1,0 +1,34 @@
+NaAnSentinels
+Copyright (c) 2026 Noam Lellouche
+
+Original project, distributed under the MIT license (see LICENSE).
+
+English
+-------
+If you redistribute this software or a derived version, keep this file and the LICENSE file, and state
+clearly that your version is derived from NaAnSentinels.
+
+Only executables whose signature is valid for the public key `keys/officielle.pub`
+(fingerprint: a95e daa9 0120 33aa) are official releases. A derived version must not present itself
+as the official one.
+
+Français
+--------
+Si tu redistribues ce logiciel ou une version dérivée, conserve ce fichier et le fichier LICENSE,
+et indique clairement que ta version est dérivée de NaAnSentinels.
+
+Seuls les exécutables dont la signature est valide pour la clé publique `keys/officielle.pub`
+(empreinte : a95e daa9 0120 33aa) sont des versions officielles. Une version dérivée ne doit pas
+se présenter comme la version officielle.
+
+Español
+-------
+Si redistribuyes este software o una versión derivada, conserva este archivo y el archivo LICENSE,
+e indica claramente que tu versión deriva de NaAnSentinels.
+
+Solo los ejecutables cuya firma es válida para la clave pública `keys/officielle.pub`
+(huella: a95e daa9 0120 33aa) son versiones oficiales. Una versión derivada no debe presentarse
+como la versión oficial.
+
+Dependencies / Dépendances / Dependencias: each library remains under its own license
+(see Cargo.lock and crates.io).

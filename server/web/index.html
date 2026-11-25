@@ -1,0 +1,137 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT — Copyright (c) 2026 Noam Lellouche — NaAnSentinels (projet original) -->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NaAnSentinels</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <svg class="definitions" width="0" height="0" aria-hidden="true"><defs><linearGradient id="degrade-bouclier" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs></svg>
+  <header class="barre">
+    <a class="marque" href="/" aria-label="NaAnSentinels, accueil">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path class="bouclier-trait" d="M12 2.5 4 5.5v6c0 5 3.4 8.4 8 10 4.6-1.600 8-5 8-10v-6z"/><path class="bouclier-coche" d="m8.500 12 2.500 2.500 4.500-5"/></svg>
+      <span>NaAnSentinels</span>
+    </a>
+    <nav id="nav" aria-label="Vues"></nav>
+    <div id="compte" class="compte"></div>
+  </header>
+
+  <main>
+    <!-- ============ Accueil public ============ -->
+    <section id="vue-accueil" hidden>
+      <div class="hero">
+        <div class="radar" aria-hidden="true"><span class="onde"></span><span class="onde onde-2"></span>
+          <svg viewBox="0 0 24 24" width="88" height="88"><path class="bouclier-plein" d="M12 2.500 4 5.500v6c0 5 3.400 8.400 8 10 4.600-1.600 8-5 8-10v-6z"/><path class="bouclier-coche" d="m8.500 12 2.500 2.500 4.500-5"/></svg>
+        </div>
+        <div>
+          <h1>L'antivirus qui t'explique au lieu de t'interdire.</h1>
+          <p class="sous-titre">Open source. Il analyse tes fichiers sur ton PC, te dit ce qu'il voit et pourquoi, et te laisse décider.</p>
+        </div>
+      </div>
+
+      <h2>Comment ça marche</h2>
+      <ol class="schema" aria-label="Schéma : de ton PC au tableau de bord">
+        <li class="etape"><span class="rang">1</span><strong>Sur ton PC</strong><span>NaAnSentinels lit et désassemble le fichier. Il ne l'exécute jamais et rien ne quitte ta machine.</span></li>
+        <li class="fleche" aria-hidden="true"><span class="point"></span></li>
+        <li class="etape pointille"><span class="rang">2</span><strong>Signal facultatif</strong><span>Si tu l'actives, un signal anonyme part toutes les minutes : version, système, nombre d'analyses.</span></li>
+        <li class="fleche" aria-hidden="true"><span class="point"></span></li>
+        <li class="etape"><span class="rang">3</span><strong>Tableau de bord</strong><span>Le serveur compte les appareils connectés. Seuls l'admin et les analystes le voient.</span></li>
+      </ol>
+
+      <div class="deux-colonnes">
+        <div class="carte">
+          <h3><span class="puce ok" aria-hidden="true">✓</span> Ce qui est envoyé (si tu l'actives)</h3>
+          <ul><li>Un identifiant aléatoire d'installation</li><li>La version de NaAnSentinels et le système</li><li>Le nombre d'analyses, par verdict</li><li>Ton pseudo, seulement si tu te connectes</li></ul>
+        </div>
+        <div class="carte">
+          <h3><span class="puce non" aria-hidden="true">✕</span> Ce qui n'est jamais envoyé</h3>
+          <ul><li>Tes fichiers, leurs noms, leurs chemins</li><li>Les empreintes de tes fichiers</li><li>Tes mails et tes liens</li><li>Ton adresse IP n'est pas enregistrée</li></ul>
+        </div>
+      </div>
+
+      <h2>Qui voit quoi</h2>
+      <div class="roles">
+        <div class="carte role"><strong>Utilisateur</strong><span>Voit ses propres appareils.</span></div>
+        <div class="carte role"><strong>Analyste</strong><span>Voit aussi le tableau de bord, en lecture seule.</span></div>
+        <div class="carte role"><strong>Admin</strong><span>Gère en plus les comptes et lit le journal de sécurité.</span></div>
+      </div>
+
+      <h2>Ton compte</h2>
+      <div class="deux-colonnes">
+        <form id="form-connexion" class="carte" autocomplete="on">
+          <h3>Se connecter</h3>
+          <label>Pseudo <input name="pseudo" autocomplete="username" required minlength="3" maxlength="24"></label>
+          <label>Mot de passe <input name="mot_de_passe" type="password" autocomplete="current-password" required></label>
+          <button type="submit">Se connecter</button>
+          <p class="message" role="status"></p>
+        </form>
+        <form id="form-inscription" class="carte" autocomplete="on">
+          <h3>Créer un compte</h3>
+          <label>Pseudo <input name="pseudo" autocomplete="username" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_\-]+"></label>
+          <label>Mot de passe (10 caractères au moins) <input name="mot_de_passe" type="password" autocomplete="new-password" required minlength="10" maxlength="128"></label>
+          <button type="submit" class="secondaire">Créer le compte</button>
+          <p class="message" role="status"></p>
+        </form>
+      </div>
+      <p class="note">Le compte est facultatif : NaAnSentinels fonctionne entièrement sans.</p>
+    </section>
+
+    <!-- ============ Mes appareils (vue simple, pour tous les comptes) ============ -->
+    <section id="vue-mes" hidden>
+      <div class="hero compact">
+        <div class="radar" aria-hidden="true"><span class="onde"></span><span class="onde onde-2"></span>
+          <svg viewBox="0 0 24 24" width="72" height="72"><path class="bouclier-plein" d="M12 2.500 4 5.500v6c0 5 3.400 8.400 8 10 4.600-1.600 8-5 8-10v-6z"/><path class="bouclier-coche" d="m8.500 12 2.500 2.500 4.500-5"/></svg>
+        </div>
+        <div><h1 id="mes-titre">Tes appareils</h1><p class="sous-titre" id="mes-phrase"></p></div>
+      </div>
+      <div id="mes-liste" class="cartes-appareils"></div>
+    </section>
+
+    <!-- ============ Tableau de bord (analyste, admin) ============ -->
+    <section id="vue-tableau" hidden>
+      <div class="entete-vue">
+        <h1>Tableau de bord</h1>
+        <div class="bascule" role="group" aria-label="Niveau de détail">
+          <button type="button" id="mode-simple" aria-pressed="true">Vue simple</button>
+          <button type="button" id="mode-detail" aria-pressed="false">Vue détaillée</button>
+        </div>
+      </div>
+      <p class="phrase" id="tableau-phrase"></p>
+      <div class="tuiles" id="tuiles"></div>
+      <div class="carte">
+        <h3>Verdicts des analyses</h3>
+        <div id="verdicts-barre" class="segments" role="img" aria-label="Répartition des verdicts"></div>
+        <ul id="verdicts-legende" class="legende"></ul>
+      </div>
+      <div class="detail deux-colonnes">
+        <div class="carte"><h3>Appareils par version</h3><div id="barres-versions" class="barres"></div></div>
+        <div class="carte"><h3>Appareils par système</h3><div id="barres-systemes" class="barres"></div></div>
+      </div>
+      <div class="detail carte">
+        <h3>Appareils</h3>
+        <div class="defilement"><table id="table-appareils"><thead><tr><th>État</th><th>Appareil</th><th>Compte</th><th>Version</th><th>Système</th><th class="num">Analyses</th><th class="num">Dangereux</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ============ Administration (admin) ============ -->
+    <section id="vue-admin" hidden>
+      <h1>Comptes et sécurité</h1>
+      <div class="carte">
+        <h3>Comptes</h3>
+        <div class="defilement"><table id="table-comptes"><thead><tr><th>Pseudo</th><th>Rôle</th><th class="num">Appareils</th><th>État</th><th></th></tr></thead><tbody></tbody></table></div>
+        <p class="message" id="admin-message" role="status"></p>
+      </div>
+      <div class="carte">
+        <h3>Journal de sécurité</h3>
+        <div class="defilement"><table id="table-journal"><thead><tr><th>Quand</th><th>Qui</th><th>Action</th><th>Détail</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="bulle" class="bulle" hidden></div>
+  <footer>NaAnSentinels — open source, licence MIT — projet original de Noam Lellouche</footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>
